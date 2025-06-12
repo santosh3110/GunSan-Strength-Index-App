@@ -1,0 +1,9 @@
+gunsan-strength
+pandas
+numpy
+vectorbt
+pandas-ta
+plotly
+yfinance
+flask
+gunicorn

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GunSan Strength Index Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/static/bg.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #000;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(242, 242, 242, 0.5);
+            border-bottom: 1px solid #ddd;
+            padding: 12px 16px 8px;
+        }
+
+        .form-container {
+            text-align: left;
+            max-width: none;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .form-container h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            
+        }
+
+        .intro {
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            margin: 6px 0;
+            line-height: 1.3;
+            font-size: 14px;
+        }
+
+        .badge {
+            font-size: 15px;
+            margin-top: 6px;
+        }
+
+        .badge img {
+            height: 20px;
+            vertical-align: middle;
+            margin-left: 8px;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-row input,
+        .form-row select,
+        .form-row button {
+            padding: 6px 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .plot-container {
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        iframe {
+            width: 100%;
+            height: 80vh;
+            border: none;
+        }
+
+        footer {
+            text-align: center;
+            background-color: rgba(242, 242, 242, 0.5);
+            font-size: 14px;
+            border-top: 1px solid #ccc;
+            line-height: 1;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-row input,
+            .form-row select,
+            .form-row button {
+                width: 100%;
+            }
+
+            iframe {
+                height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="form-container">
+            <h2>GunSan Strength Index</h2>
+
+            <div class="intro">
+                <p><strong>GunSan Strength Index (GSI)</strong> is a proprietary technical indicator developed by <strong>Santosh Kumar Guntupalli</strong> to quantify the strength of a financial instrument by combining trend, momentum, and volatility signals.</p>
+                <p>This package empowers analysts, traders, and quant developers to calculate and visualize strength dynamics, detect potential trend reversals, and identify strength zones such as <strong>bullish</strong>, <strong>bearish</strong>, or <strong>flat</strong> phases.
+                     It also helps in pinpointing <strong>overbought</strong> and <strong>oversold</strong> conditions with greater precision. 
+                     By effectively blending both <em>leading</em> and <em>lagging</em> signals from trending and trading market regimes,
+                      the <strong>GunSan Strength Index</strong> serves as a unique hybrid indicator.
+                    <a href="https://github.com/santosh3110/GunSan-Strength-Index#-user-guide" target="_blank" title="User Guide" style="text-decoration: none; margin-left: 2px;">📖</a>
+                </p>
+                <p class="badge">
+                    📦 PyPI: <code>pip install gunsan-strength</code><br>
+                    🔗 
+                    <a href="https://pypi.org/project/gunsan-strength/" target="_blank">PyPI Page</a> |
+                    <a href="https://github.com/santosh3110/GunSan-Strength-Index" target="_blank">GitHub Repo</a> |
+                    <a class="download-btn" href="https://pypistats.org/packages/gunsan-strength" target="_blank">PyPI Stats</a>
+                    <a href="https://pepy.tech/projects/gunsan-strength" target="_blank">
+                        <img src="https://static.pepy.tech/badge/gunsan-strength" alt="PyPI Downloads">
+                    </a>
+                </p>
+            </div>
+
+            <form method="POST">
+                <div class="form-row">
+                    <label for="ticker">Yahoo Ticker:</label>
+                    <input type="text" name="ticker" required placeholder="e.g. AAPL or BTC-USD">
+
+                    <label for="frequency">Frequency:</label>
+                    <select name="frequency" required>
+                        <option value="1d">Daily</option>
+                        <option value="1wk">Weekly</option>
+                        <option value="1mo">Monthly</option>
+                    </select>
+
+                    <label for="signal_window">Signal Window:</label>
+                    <input type="number" name="signal_window" value="50" min="1" max="252">
+
+                    <button type="submit">Generate</button>
+                </div>
+            </form>
+
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+        </div>
+    </header>
+
+    <main>
+        {% if plot_html %}
+        <div class="plot-container">
+            {{ plot_html | safe }}
+        </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p><strong>Developed & Maintained by <a href="https://www.linkedin.com/in/santosh-guntupalli-05b285250/" target="_blank" style="color:#004080;">Santosh Kumar Guntupalli</a></strong></p>
+        <p style="font-style: italic; color: #333;">
+            Dedicated to my guru – the legendary <strong>AS Chakravarthy</strong>. 🙏
+        </p>
+        <p style="font-size: 13px; color: #333;">&copy; 2025 Santosh Kumar Guntupalli</p>
+    </footer>
+
+</body>
+</html>
