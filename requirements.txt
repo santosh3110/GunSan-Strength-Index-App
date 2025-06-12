@@ -1,6 +1,6 @@
 gunsan-strength
 pandas
-numpy
+numpy == 1.24.4
 vectorbt
 pandas-ta
 plotly
