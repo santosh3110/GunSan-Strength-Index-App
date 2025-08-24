@@ -1,3 +1,16 @@
+---
+title: GunSan Strength Index App
+emoji: 📊
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: 5.43.1
+app_file: app.py
+pinned: false
+license: apache-2.0
+short_description: GunSan Strength Index (GSI) - Technical Analysis Indicator
+---
+
 
 # 📈 GunSan Strength Index (GSI)
 

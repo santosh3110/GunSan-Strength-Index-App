@@ -1,9 +1,10 @@
 gunsan-strength
 pandas
-numpy == 1.24.4
+numpy==1.23.5
 vectorbt
 pandas-ta
 plotly
 yfinance
 flask
 gunicorn
+websockets
