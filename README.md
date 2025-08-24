@@ -20,6 +20,8 @@ This package empowers analysts, traders, and quant developers to calculate and v
 
 By effectively blending both *leading* and *lagging* signals across trending and trading market regimes, the **GunSan Strength Index** serves as a unique hybrid indicator.
 
+🔗 **Live Demo**: [![Hugging Face Spaces](https://img.shields.io/badge/Launch%20App-HuggingFace-orange?logo=huggingface)](https://huggingface.co/spaces/santosh3110/GunSan-Strength-Index-App)
+
 ---
 
 ## 🚀 Features
